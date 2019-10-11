@@ -20,3 +20,184 @@
 .App-link {
   color: #09d3ac;
 }
+/*  */
+/* before old stuff */
+/*  */
+
+/* div {
+  text-align: center;
+} */
+
+body {
+  text-align: center;
+  font-family: cursive;
+  font-weight: 800;
+  background-color: lightgrey;
+}
+
+h4 {
+  margin: 0px 0px;
+}
+
+p {
+  margin: 0px 0px;
+}
+
+input {
+  width: 1.1%;
+  font-size: 1.8em;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 2px;
+  text-align: center;
+}
+
+.inputSign {
+  /* background-color: lightblue; */
+  border: 2px solid #0b92a0;
+  border-radius: 5px;
+  /* border-bottom: 2px solid #0b92a0; */
+}
+
+.inputExponent {
+  /* background-color: lightgreen; */
+  border: 2px solid #008204;
+  border-radius: 5px;
+  /* border-bottom: 2px solid #008204; */
+}
+
+
+.inputMantissa {
+  /* background-color: lightcoral; */
+  border: 2px solid #ff002f;
+  border-radius: 5px;
+  /* border-bottom: 2px solid #ff002f; */
+}
+
+.sign {
+  color: #0b92a0;
+}
+
+.exponent {
+  color: #008204;
+}
+
+.mantissa {
+  color: #ff002f;
+}
+
+.showExp{
+  border-bottom: 2px solid #008204;
+}
+
+#explain {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-top: 1%;
+}
+
+#toNum {
+  /* background-color: lightslategrey; */
+  border-right: 1px solid black;
+}
+
+/* #separator {
+  width: 2px;
+  height: 100%;
+  background-color: blue;
+} */
+
+#toBits {
+  /* background-color: grey; */
+}
+
+#number {
+  margin-top: 1%;
+}
+
+#numberInput {
+  width: inherit;
+  /* font-size: inherit; */
+  width: 20%;
+  font-size: 40px;
+  border: 2px solid #a6c7ff;
+  border-radius: 10px;
+  margin: inherit;
+}
+
+.binExponent {
+  letter-spacing: 5px;
+}
+
+.displayBin {
+  letter-spacing: 1px;
+}
+
+#binMantissa > span {
+  /* background-color: aqua; */
+  margin: auto 5px;
+}
+
+#compute {
+  display: flex;
+  margin-left: 15%;
+  /* padding: 0% 20%; */
+  /* display: grid;
+  grid-template-columns: auto 20% auto 20% auto; */
+}
+
+#compute > div {
+  margin: 0% 10%;
+}
+
+#compute > div > h4 {
+  text-align: center;
+}
+
+.computeCont {
+  display: flex;
+  text-align: end;
+}
+
+.displayResult {
+  text-align: left;
+  /* padding: 0 5%; */
+  /* margin-left: 5%; */
+  margin: 2% 5%;
+}
+
+.displayResult p {
+  margin: 5px 0;
+}
+/* #intCompute {
+  text-align: end;
+} */
+#decCompute p:nth-last-child(-n+3) {
+  margin-right: 13px;
+}
+
+.arrow {
+  margin-left: 5px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.arrowUp {
+  border-width: 0 6.5px 15px 6.5px;
+  border-color: transparent transparent red transparent;
+}
+
+.arrowDown {
+  border-width: 15px 6.5px 0px 6.5px;
+  border-color: red transparent transparent transparent;
+}
+
+.line {
+  display: block;
+  width: 2.5px;
+  margin-left: 10px;
+  background: red;
+  height: 80%;
+}
