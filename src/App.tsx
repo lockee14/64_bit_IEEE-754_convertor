@@ -91,9 +91,9 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     return (
       <div>
         <h1>64 bit IEEE-754 floating point format</h1>
-        <p>TODO: </p>
+        {/* <p>TODO: </p>
         <p>improve UI, don't forget edge case</p>
-        <p>ne pas oublier les cas speciaux 0, null, infinity, denormalized number >> voir doc</p>
+        <p>ne pas oublier les cas speciaux 0, null, infinity, denormalized number >> voir doc</p> */}
         <div id="bits">
           {this.displayBinary()}
         </div>
@@ -114,11 +114,14 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     );
   }
 
-  newBit(event: React.ChangeEvent<HTMLInputElement>) {
-    let index = event.target.name;
-    let newBin = "";
-    let right = this.binary.slice(0, ~~index);
-    let left = this.binary.slice(~~index + 1, this.binary.length);
+  newBit(event: React.ChangeEvent<HTMLInputElement>) { // simplify
+    const index = ~~event.target.name;
+    const value = event.target.value;
+    // let newBin = "";
+    const newBin = this.binary.split('');
+    newBin[index] = value === "1" || value === "0" ? value : newBin[index];
+    // let right = "";//this.binary.slice(0, ~~index);
+    // let left = "";//this.binary.slice(~~index + 1, this.binary.length);
     // if(index === '0') {
     //   right = this.binary.slice(1, this.binary.length)
     // } else if(index === '63') {
@@ -127,14 +130,14 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     //   left = this.binary.slice(0, ~~index);
     //   right = this.binary.slice(~~index + 1, this.binary.length);
     // }
-    if(event.target.value === '1' || event.target.value === '0') {
-      newBin = left + event.target.value + right;
-    } else {
-      newBin = this.binary;
-    }
+    // if(event.target.value === '1' || event.target.value === '0') {
+    //   newBin = left + event.target.value + right;
+    // } else {
+    //   newBin = this.binary;
+    // }
     this.setState({
       number: "",
-      binary: newBin,
+      binary: newBin.join(''),
     })
   }
 
@@ -161,14 +164,16 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     const binMantissa = this.binary.slice(12);
     
     let exponent = 0;
-    const explainExp: JSX.Element[] = [];
+    let explainExp: JSX.Element[] = [];
     binExponent.split('').forEach((bit, i) => {
       explainExp.push(
-        <span key={i}> {i === 0 ? "" : "+"} {bit !== " " ? bit : "x"} * 2<sup className="exponent">{10-i}</sup></span>
+        <span key={i}> {i === 0 ? "" : "+"} {bit} * 2<sup className="exponent">{10-i}</sup></span>
       )
       exponent += ~~bit * Math.pow(2, 10-i);
     });
-
+    explainExp = explainExp.slice(0, 3)
+      .concat([<span> .</span>, <span> .</span>, <span> .</span>, <span> .</span>])
+      .concat(explainExp.slice(8));
     const displayBinMan: JSX.Element[] = [];
     const explainMan: JSX.Element[] = [];
     let mantissa = 1;
@@ -178,13 +183,17 @@ class App extends React.Component<{}, {number: string, binary: string}> {
           <span key={i} className="mantissa">{binMantissa.slice(i, i+4)}</span>
         )
       }
-      if(i<8) {
+      if(i<3) {
         explainMan.push(
-          <span key={i}>{binMantissa[i] !== " " ? binMantissa[i] : "x"} * 2<sup className="mantissa">-{i+1}</sup> + </span>
+          <span key={i}>{binMantissa[i]} * 2<sup className="mantissa">-{i+1}</sup> + </span>
         )
       }
       mantissa += ~~binMantissa[i] * Math.pow(2, -(i+1));
     }
+
+    explainMan.push(<span>.</span>, <span>.</span>, <span>.</span>, <span>.</span>, <span> + </span>,
+    <span key={50}>{binMantissa[50]} * 2<sup className="mantissa">-{51}</sup> + </span>,
+    <span key={51}>{binMantissa[51]} * 2<sup className="mantissa">-{52}</sup> + </span>);
 
     return(
       <div className="displayResult">
@@ -202,7 +211,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
         </div>
         <div>
           <p>mantissa: <span id="binMantissa">{displayBinMan}</span></p>
-          <p>1 + {explainMan} .... = <span className="mantissa">{mantissa}</span></p>
+          <p>1 + {explainMan} = <span className="mantissa">{mantissa}</span></p>
         </div>
         <div>
           <p>formula:
@@ -252,30 +261,32 @@ class App extends React.Component<{}, {number: string, binary: string}> {
           </div>
         </div>
         <div className="displayResult">
+          <p>binary integer: <span className="displayBin mantissa">{this.binInt === "" ? "no integer part" : this.binInt}</span></p>
+          <p>binary decimal: <span className="displayBin mantissa">{this.binDec}</span></p>
           <p>result: {props.templateMan}</p>
-          <p>scientific notation: 
-            {this.binInt.length ? 
-              <span className="displayBin">
-                {" " + this.binInt.slice(0, 1)}.
-                <span className="mantissa">
-                  {this.binInt.slice(1)}{this.binDec}
+          <p>scientific notation:
+             {this.binInt.length ? 
+               <span className="displayBin">
+                 {" " + this.binInt.slice(0, 1)}.
+                 <span className="mantissa">
+                   {this.binInt.slice(1)}{this.binDec.slice(0, 20)}....
+                 </span>
+                 {" * 2"}
+                 <sup className="exponent">{this.exponent}</sup>
                 </span>
-                {" * 2"}
-                <sup className="exponent">{this.exponent}</sup>
-              </span>
-              :
-              <span className="displayBin">
-                {" " + this.binDec.slice(this.binDec.indexOf("1"))[0]}.
-                <span className="mantissa">
-                  {this.binDec.slice(this.binDec.indexOf("1") + 1)}
+               :
+               <span className="displayBin">
+                 {" " + this.binDec.slice(this.binDec.indexOf("1"))[0]}.
+                 <span className="mantissa">
+                   {this.binDec.slice(this.binDec.indexOf("1") + 1)}
+                 </span>
+                 {" * 2"}
+                 <sup className="exponent">{this.exponent}</sup>
                 </span>
-                {" * 2"}
-                <sup className="exponent">{this.exponent}</sup>
-              </span>
-            }
+             }
           </p>
           <p>exponent: {this.exponent} + 1023 (biais) = <span className="binExponent exponent">{this.binary.slice(1,12)}</span></p>
-          <p>{this.binSign} number sign bit = <span className="sign">{this.binSign}</span></p>
+          <p>{this.binSign === "1" ? "negative":"positive"} number sign bit = <span className="sign">{this.binSign}</span></p>
           <p>binary: 
             <span className="displayBin">
               <span className="sign"> {this.binary.slice(0,1)}</span>
@@ -350,11 +361,6 @@ function intToBin(int: number): [string[], JSX.Element[]] {
   while(int) {
     let [nextInt, rest] = [Math.floor(int/2), int%2];
     template.push(<p>{int} = {nextInt} * 2 + <span className="mantissa">{rest}</span></p>);
-    // template = template.length >= 13 ? 
-    //   template.slice(0, 4).concat(
-    //     [<p className="mantissa">.</p>, <p className="mantissa">.</p>, <p className="mantissa">.</p>]
-    //   ).concat(template.slice(template.length -5, template.length))
-    //   : template;
     arr.push(`${rest}`);
     int = Math.floor(nextInt);
   }
