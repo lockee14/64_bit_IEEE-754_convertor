@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/precache-manifest.5d2aebd0af98fdc366f991c217d79ad5.js"
+  "/64_bit_IEEE-754_convertor/precache-manifest.a49c53583d03252cb2b4a10bb59be64a.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/64_bit_IEEE-754_convertor/index.html"), {
   
   blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
 });

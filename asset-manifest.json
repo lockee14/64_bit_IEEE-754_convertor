@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/css/main.f02bde69.chunk.css",
-    "main.js": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/main.7ece3874.chunk.js",
-    "main.js.map": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/main.7ece3874.chunk.js.map",
-    "runtime-main.js": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/runtime-main.9fdab5cd.js",
-    "runtime-main.js.map": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/runtime-main.9fdab5cd.js.map",
-    "static/js/2.1f642bda.chunk.js": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/2.1f642bda.chunk.js",
-    "static/js/2.1f642bda.chunk.js.map": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/js/2.1f642bda.chunk.js.map",
-    "index.html": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/index.html",
-    "precache-manifest.5d2aebd0af98fdc366f991c217d79ad5.js": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/precache-manifest.5d2aebd0af98fdc366f991c217d79ad5.js",
-    "service-worker.js": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/service-worker.js",
-    "static/css/main.f02bde69.chunk.css.map": "%7Blockee14%7D.github.io/%7B64_bit_IEEE-754_convertor%7D/static/css/main.f02bde69.chunk.css.map"
+    "main.css": "/64_bit_IEEE-754_convertor/static/css/main.f02bde69.chunk.css",
+    "main.js": "/64_bit_IEEE-754_convertor/static/js/main.1f431e40.chunk.js",
+    "main.js.map": "/64_bit_IEEE-754_convertor/static/js/main.1f431e40.chunk.js.map",
+    "runtime-main.js": "/64_bit_IEEE-754_convertor/static/js/runtime-main.2ffc8a4c.js",
+    "runtime-main.js.map": "/64_bit_IEEE-754_convertor/static/js/runtime-main.2ffc8a4c.js.map",
+    "static/js/2.1f642bda.chunk.js": "/64_bit_IEEE-754_convertor/static/js/2.1f642bda.chunk.js",
+    "static/js/2.1f642bda.chunk.js.map": "/64_bit_IEEE-754_convertor/static/js/2.1f642bda.chunk.js.map",
+    "index.html": "/64_bit_IEEE-754_convertor/index.html",
+    "precache-manifest.a49c53583d03252cb2b4a10bb59be64a.js": "/64_bit_IEEE-754_convertor/precache-manifest.a49c53583d03252cb2b4a10bb59be64a.js",
+    "service-worker.js": "/64_bit_IEEE-754_convertor/service-worker.js",
+    "static/css/main.f02bde69.chunk.css.map": "/64_bit_IEEE-754_convertor/static/css/main.f02bde69.chunk.css.map"
   }
 }
