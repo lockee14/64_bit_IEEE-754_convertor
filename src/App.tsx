@@ -36,7 +36,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   constructor(props: any) {
     super(props)
     this.state = {
-      number: "340.15",
+      number: "0.15",
       binary: "",
     };
   }
@@ -65,6 +65,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
       [this.number, this.exponent, this.mantissa] = binToNum(this.binary);
       [ , this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
     } else /*if (this.number !== "" && this.number !== "0")*/ {
+      console.log("number: ", this.number);
       this.number = this.number === "" ? "0" : this.number;
       [this.binary, this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
       [ , this.exponent, this.mantissa] = binToNum(this.binary);
@@ -230,7 +231,10 @@ class App extends React.Component<{}, {number: string, binary: string}> {
 
   explainToBits(props: any) {
     const number = this.number;
-
+    console.log("explainToBits scientifi notation: ")
+    console.log("binDec: ", this.binDec);
+    console.log("this.binDec.slice(this.binDec.indexOf(1))[0]: ", this.binDec.slice(this.binDec.indexOf("1"))[0])
+    console.log("this.binDec.slice(this.binDec.indexOf(1) + 1): ", this.binDec.slice(this.binDec.indexOf("1") + 1))
     return(
       <div>
         <h4>Number: {number}</h4>
@@ -261,7 +265,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
           </div>
         </div>
         <div className="displayResult">
-          <p>binary integer: <span className="displayBin mantissa">{this.binInt === "" ? "no integer part" : this.binInt}</span></p>
+          <p>binary integer: <span className="displayBin mantissa">{this.binInt === "" ? "0" : this.binInt}</span></p>
           <p>binary decimal: <span className="displayBin mantissa">{this.binDec}</span></p>
           <p>result: {props.templateMan}</p>
           <p>scientific notation:
@@ -269,7 +273,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
                <span className="displayBin">
                  {" " + this.binInt.slice(0, 1)}.
                  <span className="mantissa">
-                   {this.binInt.slice(1)}{this.binDec.slice(0, 20)}....
+                   {this.binInt.slice(1).concat(this.binDec).slice(0,30)}{/*this.binDec.slice(0, 25)*/}....
                  </span>
                  {" * 2"}
                  <sup className="exponent">{this.exponent}</sup>
@@ -277,8 +281,10 @@ class App extends React.Component<{}, {number: string, binary: string}> {
                :
                <span className="displayBin">
                  {" " + this.binDec.slice(this.binDec.indexOf("1"))[0]}.
+                 {/* {this.binDec.indexOf("1") === -1 ? " 0" : " 1"}. */}
                  <span className="mantissa">
-                   {this.binDec.slice(this.binDec.indexOf("1") + 1)}
+                   {this.binDec.slice(this.binDec.indexOf("1") + 1).slice(0, 30)}....
+                   {/* {this.binDec} */}
                  </span>
                  {" * 2"}
                  <sup className="exponent">{this.exponent}</sup>
@@ -323,7 +329,7 @@ function numToBin(number: string): any[] {
   const binSign = number[0] === "-" ? "1" : "0";
   const [binInt, templateBin] = intToBin(int);
   let [binDec, templateDec] = decToInt(dec);
-  
+  console.log("number to bin decimal: ", binDec);
   templateDec.push(<p className="mantissa">.</p>, <p className="mantissa">.</p>, <p className="mantissa">.</p>)
   
 
@@ -331,8 +337,8 @@ function numToBin(number: string): any[] {
     [0, <span className="displayBin"><span className="mantissa">{binDec.join('')}</span></span>]
     : findExponent(binInt, binDec);
 
-  binDec = binInt.length ? binDec : binDec.slice(binDec.findIndex((x) => x === "1") + 1);
-
+  // binDec = binInt.length ? binDec : binDec.slice(binDec.findIndex((x) => x === "1") + 1);
+  console.log("binDec deja slice: ", binDec)
 
   const binExp = new Array(11).fill("0").map((x, i) => {
     if(exponent >= Math.pow(2, 10 - i)) {
@@ -341,8 +347,8 @@ function numToBin(number: string): any[] {
     }
     return x;
   })
-
-  let bitNum = [binSign].concat(binExp).concat(binInt.slice(1).concat(binDec));
+  let adjustedBinDec = binInt.length ? binDec : binDec.slice(binDec.findIndex((x) => x === "1") + 1);
+  let bitNum = [binSign].concat(binExp).concat(binInt.slice(1).concat(adjustedBinDec));
   if(bitNum.length < 64) {
     const fill = 64 - bitNum.length;
     for(let i = 0; i <= fill; i++) {
