@@ -1,22 +1,6 @@
 import React from 'react';
 import './App.css';
 
-/*
- * problem de conversion avec bintonum or numtobin (propably numtobin)
- * number 1 as a wrong binary value
- * number 0 should be full 0 in binary
- * avant de continué et pour le pas faire de la merde
- * voir la donc concernant IEEE754
- * comprendre biais et denormalized number
- * reflechi a faire proprement chacun des fonction qui convertisse num to bin et bin to num
- * zero (0) est un nombre denormalizé thus every bit = 0
- * problem avec les nombre de 0.quelquechose
- * exemple 0.15: int: 00000000..., dec: 001010000.... donc expo = 2^-3 >> 01111111100
- * mantissa = 01000000.... because implicite leading one thus 001010000... become 1.01000... * 2^-3
- * 
- */
-
-
 function Input(props: any) {
   const atr: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> = {
     maxLength: 1,
@@ -58,43 +42,26 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   denormalized: boolean = false;
 
 
-  convert() { // tres mal organisé, mal foutu
+  convert() {
     let templateBin, templateDec, templateMan;
     [this.number, this.binary] = [this.state.number, this.state.binary];
-    if (this.binary !== "" && this.binary.indexOf("1") !== -1/*!regex.test(this.binary)*/) {
+    if (this.binary !== "" && this.binary.indexOf("1") !== -1) {
       [this.number, this.exponent, this.mantissa] = binToNum(this.binary);
       [ , this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
-    } else /*if (this.number !== "" && this.number !== "0")*/ {
-      console.log("number: ", this.number);
+    } else {
       this.number = this.number === "" ? "0" : this.number;
       [this.binary, this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
       [ , this.exponent, this.mantissa] = binToNum(this.binary);
-    } /*else {
-      this.number = "0";
-      [ this.binary, this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
-      [ , this.exponent, this.mantissa] = binToNum(this.binary);      
-    }*/
+    }
     return [templateBin, templateDec, templateMan]
   }
 
   render() {
     [this.number, this.binary, this.binSign, this.binInt, this.binDec, this.integer, this.decimal, this.exponent, this.mantissa] = ["", "", "", "", "", "" ,"" ,"" ,""];
     let [templateBin, templateDec, templateMan] = this.convert();
-    console.log(
-      "this.number: ", this.number,
-      "this.binary: ", this.binary, this.binary.length,
-      "this.binSign: ", this.binSign,
-      "this.binInt: ", this.binInt,
-      "this.binDec: ", this.binDec,
-      "this.exponent: ", this.exponent,
-      "this.mantissa: ", this.mantissa,
-    )
     return (
       <div>
         <h1>64 bit IEEE-754 floating point format</h1>
-        {/* <p>TODO: </p>
-        <p>improve UI, don't forget edge case</p>
-        <p>ne pas oublier les cas speciaux 0, null, infinity, denormalized number >> voir doc</p> */}
         <div id="bits">
           {this.displayBinary()}
         </div>
@@ -115,27 +82,11 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     );
   }
 
-  newBit(event: React.ChangeEvent<HTMLInputElement>) { // simplify
+  newBit(event: React.ChangeEvent<HTMLInputElement>) {
     const index = ~~event.target.name;
     const value = event.target.value;
-    // let newBin = "";
     const newBin = this.binary.split('');
     newBin[index] = value === "1" || value === "0" ? value : newBin[index];
-    // let right = "";//this.binary.slice(0, ~~index);
-    // let left = "";//this.binary.slice(~~index + 1, this.binary.length);
-    // if(index === '0') {
-    //   right = this.binary.slice(1, this.binary.length)
-    // } else if(index === '63') {
-    //   left = this.binary.slice(0, this.binary.length - 1)
-    // } else {
-    //   left = this.binary.slice(0, ~~index);
-    //   right = this.binary.slice(~~index + 1, this.binary.length);
-    // }
-    // if(event.target.value === '1' || event.target.value === '0') {
-    //   newBin = left + event.target.value + right;
-    // } else {
-    //   newBin = this.binary;
-    // }
     this.setState({
       number: "",
       binary: newBin.join(''),
@@ -231,10 +182,6 @@ class App extends React.Component<{}, {number: string, binary: string}> {
 
   explainToBits(props: any) {
     const number = this.number;
-    console.log("explainToBits scientifi notation: ")
-    console.log("binDec: ", this.binDec);
-    console.log("this.binDec.slice(this.binDec.indexOf(1))[0]: ", this.binDec.slice(this.binDec.indexOf("1"))[0])
-    console.log("this.binDec.slice(this.binDec.indexOf(1) + 1): ", this.binDec.slice(this.binDec.indexOf("1") + 1))
     return(
       <div>
         <h4>Number: {number}</h4>
@@ -273,7 +220,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
                <span className="displayBin">
                  {" " + this.binInt.slice(0, 1)}.
                  <span className="mantissa">
-                   {this.binInt.slice(1).concat(this.binDec).slice(0,30)}{/*this.binDec.slice(0, 25)*/}....
+                   {this.binInt.slice(1).concat(this.binDec).slice(0,30)}....
                  </span>
                  {" * 2"}
                  <sup className="exponent">{this.exponent}</sup>
@@ -281,10 +228,8 @@ class App extends React.Component<{}, {number: string, binary: string}> {
                :
                <span className="displayBin">
                  {" " + this.binDec.slice(this.binDec.indexOf("1"))[0]}.
-                 {/* {this.binDec.indexOf("1") === -1 ? " 0" : " 1"}. */}
                  <span className="mantissa">
                    {this.binDec.slice(this.binDec.indexOf("1") + 1).slice(0, 30)}....
-                   {/* {this.binDec} */}
                  </span>
                  {" * 2"}
                  <sup className="exponent">{this.exponent}</sup>
@@ -329,16 +274,12 @@ function numToBin(number: string): any[] {
   const binSign = number[0] === "-" ? "1" : "0";
   const [binInt, templateBin] = intToBin(int);
   let [binDec, templateDec] = decToInt(dec);
-  console.log("number to bin decimal: ", binDec);
   templateDec.push(<p className="mantissa">.</p>, <p className="mantissa">.</p>, <p className="mantissa">.</p>)
   
 
   let [exponent, templateMan] = number === "0" ? 
     [0, <span className="displayBin"><span className="mantissa">{binDec.join('')}</span></span>]
     : findExponent(binInt, binDec);
-
-  // binDec = binInt.length ? binDec : binDec.slice(binDec.findIndex((x) => x === "1") + 1);
-  console.log("binDec deja slice: ", binDec)
 
   const binExp = new Array(11).fill("0").map((x, i) => {
     if(exponent >= Math.pow(2, 10 - i)) {
@@ -347,8 +288,10 @@ function numToBin(number: string): any[] {
     }
     return x;
   })
+
   let adjustedBinDec = binInt.length ? binDec : binDec.slice(binDec.findIndex((x) => x === "1") + 1);
   let bitNum = [binSign].concat(binExp).concat(binInt.slice(1).concat(adjustedBinDec));
+
   if(bitNum.length < 64) {
     const fill = 64 - bitNum.length;
     for(let i = 0; i <= fill; i++) {
