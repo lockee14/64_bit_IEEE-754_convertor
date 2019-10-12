@@ -20,7 +20,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   constructor(props: any) {
     super(props)
     this.state = {
-      number: "0.15",
+      number: "340.15",
       binary: "",
     };
   }
