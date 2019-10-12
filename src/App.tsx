@@ -36,7 +36,6 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   decimal: string = "";
 
   exponent: string = "";
-  biaisExp: string = "";
   mantissa: string = "";
 
   denormalized: boolean = false;
@@ -159,7 +158,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
         <div>
           <p>binary exponent: <span className="binExponent exponent">{binExponent}</span></p>
           <p>{explainExp} = {exponent}</p>
-          <p>exponent = {exponent} - 1023 (biais) = <span className="exponent">{exponent - 1023}</span></p>
+          <p>exponent = {exponent} - 1023 (bias) = <span className="exponent">{exponent - 1023}</span></p>
         </div>
         <div>
           <p>mantissa: <span id="binMantissa">{displayBinMan}</span></p>
@@ -168,7 +167,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
         <div>
           <p>formula:
             <span> -1<sup className="sign">sign</sup> * 2<sup>
-              <span className="exponent">exp</span> - biais</sup> * <span className="mantissa">mantissa</span> = number
+              <span className="exponent">exp</span> - bias</sup> * <span className="mantissa">mantissa</span> = number
             </span>
           </p>
           <p>number = -1
@@ -236,7 +235,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
                 </span>
              }
           </p>
-          <p>exponent: {this.exponent} + 1023 (biais) = <span className="binExponent exponent">{this.binary.slice(1,12)}</span></p>
+          <p>exponent: {this.exponent} + 1023 (bias) = <span className="binExponent exponent">{this.binary.slice(1,12)}</span></p>
           <p>{this.binSign === "1" ? "negative":"positive"} number sign bit = <span className="sign">{this.binSign}</span></p>
           <p>binary: 
             <span className="displayBin">
