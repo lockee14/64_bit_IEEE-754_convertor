@@ -1,7 +1,10 @@
-## 64 bit IEEE-754 convertor
+# 64 bit IEEE-754 convertor
 
-input explaination here
+![IEEE-754 visualisation](https://raw.githubusercontent.com/lockee14/64_bit_IEEE-754_convertor/master/IEEE-754_format.gif "IEEE-754 visualisation gif")
 
+This an IEEE-754 visualization tool for 64-bit floating-point numbers.
+
+You can change the bits or the number value and see how the IEEE-754 work.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
