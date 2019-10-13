@@ -4,7 +4,7 @@
 
 This an IEEE-754 visualization tool for 64-bit floating-point numbers.
 
-You can change the bits or the number value and see how the IEEE-754 work.
+You can change the bits or the number value and see how the IEEE-754 format works.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
