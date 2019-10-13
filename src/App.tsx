@@ -38,7 +38,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   exponent: string = "";
   mantissa: string = "";
 
-  denormalized: boolean = false;
+  denormalized: boolean = false; // useless?
 
 
   convert() {
@@ -48,7 +48,6 @@ class App extends React.Component<{}, {number: string, binary: string}> {
       [this.number, this.exponent, this.mantissa] = binToNum(this.binary);
       [ , this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
     } else {
-      this.number = this.number === "" ? "0" : this.number;
       [this.binary, this.binSign, this.binInt, this.binDec, this.integer, this.decimal, templateBin, templateDec, templateMan] = numToBin(this.number);
       [ , this.exponent, this.mantissa] = binToNum(this.binary);
     }
@@ -67,7 +66,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
         <div id="explain">
           <div id="toNum">
             <h3>Bits to number conversion:</h3>
-            <div>{this.explainToNum({})}</div>
+            <div>{this.explainToNum()}</div>
           </div>
           <div id="toBits">
             <h3>Number to bits conversion:</h3>
@@ -109,7 +108,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
     return temp;
   }
 
-  explainToNum(props: any) {
+  explainToNum() {
     const binSign = this.binary.slice(0, 1);
     const binExponent = this.binary.slice(1, 12);
     const binMantissa = this.binary.slice(12);
@@ -180,10 +179,9 @@ class App extends React.Component<{}, {number: string, binary: string}> {
   }
 
   explainToBits(props: any) {
-    const number = this.number;
     return(
       <div>
-        <h4>Number: {number}</h4>
+        <h4>Number: {this.number}</h4>
         <div id="compute">
           <div>
             <h4>integer: {this.integer}</h4>
@@ -205,7 +203,7 @@ class App extends React.Component<{}, {number: string, binary: string}> {
               <div id="decCompute">{props.templateDec}</div>
               <span>
                 <span className="line"></span>
-                <span className="arrow arrowDown"></span>                                
+                <span className="arrow arrowDown"></span>
               </span>
             </div>
           </div>
