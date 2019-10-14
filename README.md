@@ -6,6 +6,8 @@ This an IEEE-754 visualization tool for 64-bit floating-point numbers.
 
 You can change the bits or the number value and see how the IEEE-754 format works.
 
+Live app here: [https://lockee14.github.io/64_bit_IEEE-754_convertor](https://lockee14.github.io/64_bit_IEEE-754_convertor)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
